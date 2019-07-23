@@ -1,13 +1,18 @@
 
-FROM fluent/fluentd:v0.12-onbuild
+FROM fluent/fluentd:v1.6-1
 
-RUN apk add --update --virtual .build-deps \
+USER root
+RUN  apk add --update --virtual .build-deps \
         sudo build-base ruby-dev \
  && sudo gem install \
         fluent-plugin-elasticsearch \
  && sudo gem install \
         fluent-plugin-record-reformer \
+ && sudo gem install fluent-plugin-slack \
+ && sudo gem install fluent-plugin-s3 \
+ && sudo gem install fluent-plugin-grep \
  && sudo gem sources --clear-all \
- && apk del .build-deps \
- && rm -rf /var/cache/apk/* \
-           /home/fluent/.gem/ruby/2.3.0/cache/*.gem
+ && sudo apk del .build-deps \
+ && rm -rf /tmp/* /var/tmp/* /usr/lib/ruby/gems/*/cache/*.gem 
+
+USER fluent
