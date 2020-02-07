@@ -1,0 +1,4 @@
+.idea
+.rakeTasks
+*.gem
+.DS_Store
