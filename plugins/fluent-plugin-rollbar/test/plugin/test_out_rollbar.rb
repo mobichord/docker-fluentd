@@ -62,7 +62,7 @@ class RollbarOutputTest < Test::Unit::TestCase
         'subsystem' => 'test',
         'activityId' => '123123',
         'tenant' => 'test',
-        'logger' => 'method1',
+        'logger_name' => 'method1',
         'message' => 'ERROR'
       }
 

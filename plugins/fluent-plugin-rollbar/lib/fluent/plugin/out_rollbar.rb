@@ -94,7 +94,6 @@ module Fluent
         app = record['application']
         app = app[(app.index('.') || -1) + 1..-1]
         app.sub!('integration-', '')
-        log.info app
         return nil if !@tokens.key?(app) || record['level'] != 'ERROR'
 
         {
@@ -109,7 +108,7 @@ module Fluent
               activityId: record['activityId'],
               tenant: record.key?('tenant') ? record['tenant'] : record['tenantCode'],
               app: app,
-              logger: record['logger']
+              logger: record['logger_name']
             },
             body: { message: { body: record['message'] } }
           }
