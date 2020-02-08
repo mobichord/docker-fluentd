@@ -94,6 +94,7 @@ module Fluent
         app = record['application']
         app = app[(app.index('.') || -1) + 1..-1]
         app.sub!('integration-', '')
+        log.info app
         return nil if !@tokens.key?(app) || record['level'] != 'ERROR'
 
         {
