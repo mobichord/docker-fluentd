@@ -29,7 +29,7 @@ module Fluent
       config_section :buffer do
         config_set_default :type, DEFAULT_BUFFER_TYPE
         config_set_default :flush_mode, :interval
-        config_set_default :flush_interval, 1
+        config_set_default :flush_interval, 5
       end
 
       def configure(conf)
@@ -65,7 +65,6 @@ module Fluent
           payload = create_payload(record)
           next if payload.nil?
 
-          log.warn JSON.dump(payload)
           EventMachine.run do
             req = EventMachine::HttpRequest.new(@endpoint).post(body: payload.to_json)
             req.callback do
@@ -94,6 +93,7 @@ module Fluent
 
         app = record['application']
         app = app[(app.index('.') || -1) + 1..-1]
+        app.sub!('integration-', '')
         return nil if !@tokens.key?(app) || record['level'] != 'ERROR'
 
         {
