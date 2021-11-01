@@ -1,5 +1,5 @@
 
-FROM fluent/fluentd:v1.6-1
+FROM fluent/fluentd:v1.14
 
 USER root
 RUN  apk add --update --virtual .build-deps \
@@ -8,7 +8,7 @@ RUN  apk add --update --virtual .build-deps \
         fluent-plugin-elasticsearch \
  && sudo gem install \
         fluent-plugin-record-reformer \
- && sudo gem install fluent-plugin-slack \
+ && sudo gem install fluent-plugin-teams \
  && sudo gem install fluent-plugin-s3 \
  && sudo gem install fluent-plugin-grep \
  && sudo gem sources --clear-all \
